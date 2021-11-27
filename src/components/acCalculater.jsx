@@ -1,8 +1,10 @@
 import React from "react";
 import Card from "react-bootstrap/Card";
 import { Button} from 'react-bootstrap';
+
 import AC from './ac.jpg'
 import Light from './light.jpg'
+
 
 export default class acCalculator extends React.Component {
 
@@ -12,7 +14,8 @@ export default class acCalculator extends React.Component {
           result: 0,
           rx: 0,
           ry: 0,
-          rz: 0
+          rz: 0,
+          acDescription: "لحساب التكييف المخفي لمكان ما يجب توفير طول المكان وعرضه وارتفاعها"
         };
     }
 
@@ -43,13 +46,24 @@ export default class acCalculator extends React.Component {
 
     render(){
         return(
-            <div className="d-flex justify-content-around">
-                <Card style={{display: 'flex', flexDirection: 'row'}}>
-                    <Card style={{ width: '50%' }}>
+            <div>
+                <Card style={{
+                     display: 'flex',
+                     flexDirection: 'row',
+                     backgroundColor: "#eee",
+                     float: "left",
+                     padding: 16,
+                     minHeight: 40,
+                     alignItems: "left",
+                     textAlign: "center"}}>
+                    <Card style={{
+                        padding: 16,
+                        border: "groove"
+                    }}>
                         <Card.Img variant="top" src={AC} />
                         <Card.Body>
                             <Card.Title>تكييف مخفي</Card.Title>
-                            <Card.Text>لحساب التكييف المخفي لمكان ما يجب توفير طول المكان وعرضه وارتفاعه وما اذا كان المكان معرض للشمس ام لا</Card.Text>
+                            <Card.Text>{this.state.acDescription}</Card.Text>
                             <div>
                                 <input name="rx" type="number" min="1" placeholder="طول الغرفة" onChange={e => this.updateValue(e)}/>
                                 <br/>
@@ -63,7 +77,21 @@ export default class acCalculator extends React.Component {
                             <p>{this.state.result}</p>
                         </Card.Body>
                     </Card>
-                    <Card style={{ width: '50%' }}>
+                    <Card style={{
+                        padding: 16,
+                        border: "groove"
+                    }}>
+                        <Card.Img variant="top" src={Light} />
+                        <Card.Body>
+                            <Card.Title>اضاءة</Card.Title>
+                            <Card.Text></Card.Text>
+                            <Button variant="primary">Go somewhere</Button>
+                        </Card.Body>
+                    </Card>
+                    <Card style={{
+                        padding: 16,
+                        border: "groove"
+                    }}>
                         <Card.Img variant="top" src={Light} />
                         <Card.Body>
                             <Card.Title>اضاءة</Card.Title>
