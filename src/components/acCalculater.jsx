@@ -9,19 +9,36 @@ export default class acCalculator extends React.Component {
     constructor() {
         super();
         this.state = {
-          result: ""
+          result: 0,
+          rx: 0,
+          ry: 0,
+          rz: 0
         };
     }
 
     calculateAC = e => {
-        // console.log(e.target);
-        // console.log(e.target.value);
-        const rx = document.getElementById('rx').value;
-        const ry = document.getElementById('ry').value;
-        const rz = document.getElementById('rz').value;
-
+        const rx = this.state.rx;
+        const ry = this.state.rx;
+        const rz = this.state.rx;
         var r = Math.round(rx * ry * rz * 300 / 12000)
+        if(r < 1){
+            r = rx * ry * rz * 300 / 12000
+        }
         this.setState({result:r + "طن"});
+    }
+
+    updateValue = e => {
+        var name = e.target.name;
+        var value = e.target.value;
+        if(name === "rx"){
+            this.setState({"rx":value});
+        }
+        else if(name === "ry"){
+            this.setState({"ry":value});
+        }
+        else{
+            this.setState({"rz":value});
+        }
     }
 
     render(){
@@ -29,16 +46,16 @@ export default class acCalculator extends React.Component {
             <div className="d-flex justify-content-around">
                 <Card style={{display: 'flex', flexDirection: 'row'}}>
                     <Card style={{ width: '50%' }}>
-                        <Card.Img variant="top" src={ AC } />
+                        <Card.Img variant="top" src={AC} />
                         <Card.Body>
                             <Card.Title>تكييف مخفي</Card.Title>
                             <Card.Text>لحساب التكييف المخفي لمكان ما يجب توفير طول المكان وعرضه وارتفاعه وما اذا كان المكان معرض للشمس ام لا</Card.Text>
                             <div>
-                                <input id="rx" type="number" placeholder="طول الغرفة"/>
+                                <input name="rx" type="number" min="1" placeholder="طول الغرفة" onChange={e => this.updateValue(e)}/>
                                 <br/>
-                                <input id="ry" type="number" placeholder="عرض الغرفة"/>
+                                <input name="ry" type="number" min="1" placeholder="عرض الغرفة" onChange={e => this.updateValue(e)}/>
                                 <br/>
-                                <input id="rz" type="number" placeholder="ارتفاع الغرفة"/>
+                                <input name="rz" type="number" min="1" placeholder="ارتفاع الغرفة" onChange={e => this.updateValue(e)}/>
                                 <br/>
                             </div>
                             <Button variant="primary" onClick={e => this.calculateAC(e)}>احسب</Button>
@@ -47,7 +64,7 @@ export default class acCalculator extends React.Component {
                         </Card.Body>
                     </Card>
                     <Card style={{ width: '50%' }}>
-                        <Card.Img variant="top" src={ Light } />
+                        <Card.Img variant="top" src={Light} />
                         <Card.Body>
                             <Card.Title>اضاءة</Card.Title>
                             <Card.Text></Card.Text>
